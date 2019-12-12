@@ -1,12 +1,16 @@
-package ColorPicker.Windows;
+package ru.avalon.java.j120.labs.ColorPicker.Windows;
 
-import ColorPicker.utils.GBHelper;
+import ru.avalon.java.j120.labs.ColorPicker.utils.GBHelper;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 public class ColorPickerMainWindow {
+
+    private static ColorPickerMainWindow instance;
 
     private static JFrame mainWindow = null;
     private static JPanel colorBox = null;
@@ -17,6 +21,7 @@ public class ColorPickerMainWindow {
     private static int blueColor = 125;
 
     private static String hexColor = "#7D7D7D";
+    private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
     public ColorPickerMainWindow() {
         mainWindow = createMainWindow();
@@ -31,13 +36,12 @@ public class ColorPickerMainWindow {
 
     private static JFrame createMainWindow(){
         JFrame mainWindow = new JFrame("Color Picker");
-        mainWindow.setSize(400,200);
-        //mainWindow.setPreferredSize(new Dimension(400, 200));
-        mainWindow.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // отступы от края окна
-        mainWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mainWindow.setPreferredSize(new Dimension(400, 200));
         mainWindow.setLocationRelativeTo(null);
+        mainWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         mainWindow.setLayout(new GridLayout(1,2));
-        //mainWindow.pack();
+        mainWindow.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainWindow.pack();
 
 
         return mainWindow;
@@ -63,7 +67,7 @@ public class ColorPickerMainWindow {
 
         toolsPanel.setBackground(new Color(235,235,235));
         toolsPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        toolsPanel.setLayout(new GridLayout());
+        toolsPanel.setLayout(new GridBagLayout());
         GBHelper position = new GBHelper();
         JComponent gap = new JPanel();
         gap.setPreferredSize(new Dimension(10,10));
@@ -86,6 +90,7 @@ public class ColorPickerMainWindow {
         return toolsPanel;
     }
 
+
     private JSlider createJSlider(String label){
         JSlider slider = new JSlider(0, 255,125);
         slider.setName(label);
@@ -94,8 +99,32 @@ public class ColorPickerMainWindow {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         slider.setName(label);
-        //slider.addChangeListener(mainWindow);
+        slider.addChangeListener(createCustomChangeListener());
         return slider;
+    }
+
+    private ChangeListener createCustomChangeListener(){
+        ChangeListener changeListener = changeEvent -> {
+            JSlider slider = (JSlider) changeEvent.getSource();
+            String sliderName = slider.getName();
+            switch (sliderName) {
+                case ("Red"):
+                    redColor = slider.getValue();
+                    break;
+                case ("Green"):
+                    greenColor = slider.getValue();
+                    break;
+                case ("Blue"):
+                    blueColor = slider.getValue();
+                    break;
+            }
+            Color color = new Color(redColor, greenColor, blueColor);
+            colorBox.setBackground(color);
+            hexColor = getHexColor(colorBox.getBackground());
+            colorBox.setToolTipText(hexColor);
+            copyToClipboard(hexColor);
+        };
+        return changeListener;
     }
 
     public static String getHexColor(Color color) {
@@ -105,26 +134,16 @@ public class ColorPickerMainWindow {
         return hexColor.toUpperCase();
     }
 
-    private void stateChanged(ChangeEvent changeEvent) {
-        JSlider slider = (JSlider) changeEvent.getSource();
-        String sliderName = slider.getName();
-        switch (sliderName) {
-            case ("Red"):
-                redColor = slider.getValue();
-                break;
-            case ("Green"):
-                greenColor = slider.getValue();
-                break;
-            case ("Blue"):
-                blueColor = slider.getValue();
-                break;
-        }
-        Color color = new Color(redColor, greenColor, blueColor);
-        colorBox.setBackground(color);
-        hexColor = getHexColor(colorBox.getBackground());
-        colorBox.setToolTipText(hexColor);
-        //copyToClipboard(hexColor);
-
-
+    private void copyToClipboard(String text) {
+        StringSelection selection = new StringSelection(text);
+        clipboard.setContents(selection, selection);
     }
+
+    public static ColorPickerMainWindow getInstance() {
+        if (instance == null) {
+            instance = new ColorPickerMainWindow();
+        }
+        return instance;
+    }
+
 }

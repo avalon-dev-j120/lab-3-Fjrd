@@ -1,13 +1,16 @@
-package Calculator.Windows;
+package ru.avalon.java.j120.labs.ColorPicker.Calculator.Windows;
 
-import Calculator.CustomActionListener;
+import ru.avalon.java.j120.labs.ColorPicker.Calculator.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
-public class Calculator {
+public class CalcMainWindow {
+    //TODO constants
+    //TODO keyboard input
 
+    private static CalcMainWindow instance;
     private static JFrame mainWindow = null;
     private static JLabel display = null;
     private static JPanel buttonPanel = null;
@@ -18,7 +21,7 @@ public class Calculator {
                                             "1", "2", "3", "*",
                                             "CE", "0", ".", "/"};
 
-    public Calculator() {
+    public CalcMainWindow() {
         mainWindow = createMainWindow();
         display = creteDisplay();
         buttonPanel = createButtonPanel();
@@ -32,7 +35,7 @@ public class Calculator {
 
     private JFrame createMainWindow(){
         JFrame mainWindow = new JFrame();
-        mainWindow.setTitle("Calculator");
+        mainWindow.setTitle("ru/avalon/java/j120/labs/ColorPicker/Calculator");
         mainWindow.setMinimumSize(new Dimension(300, 465));
         mainWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         mainWindow.setResizable(true);
@@ -83,5 +86,12 @@ public class Calculator {
 
     public static JLabel getDisplay() {
         return display;
+    }
+
+    public static CalcMainWindow getInstance() {
+        if (instance == null) {
+            instance = new CalcMainWindow();
+        }
+        return instance;
     }
 }

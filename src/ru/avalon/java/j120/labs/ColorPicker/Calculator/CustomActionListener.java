@@ -1,14 +1,18 @@
-package Calculator;
+package ru.avalon.java.j120.labs.ColorPicker.Calculator;
 
-import Calculator.Windows.CalcMainWindow;
+import ru.avalon.java.j120.labs.ColorPicker.Calculator.Windows.CalcMainWindow;
 
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CustomActionListener implements ActionListener {
     private static JLabel display = CalcMainWindow.getDisplay();
+    private static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
@@ -40,6 +44,7 @@ public class CustomActionListener implements ActionListener {
             }
             case "=": {
                 display.setText(calc(display.getText()));
+                copyToClipboard(display.getText());
             }
         }
     }
@@ -52,5 +57,9 @@ public class CustomActionListener implements ActionListener {
             result = "NaN";
         }
         return result;
+    }
+    private static void copyToClipboard(String text) {
+        StringSelection selection = new StringSelection(text);
+        clipboard.setContents(selection, selection);
     }
 }

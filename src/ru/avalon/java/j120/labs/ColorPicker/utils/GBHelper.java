@@ -1,4 +1,4 @@
-package ColorPicker.utils;
+package ru.avalon.java.j120.labs.ColorPicker.utils;
 
 import java.awt.*;
 
