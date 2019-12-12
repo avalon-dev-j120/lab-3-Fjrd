@@ -1,10 +1,10 @@
 package Calculator;
 
-import Calculator.Windows.Calculator;
+import Calculator.Windows.CalcMainWindow;
 
 public class Application {
 
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
+        CalcMainWindow calcMainWindow = new CalcMainWindow();
     }
 }

@@ -1,6 +1,6 @@
 package Calculator;
 
-import Calculator.Windows.Calculator;
+import Calculator.Windows.CalcMainWindow;
 
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CustomActionListener implements ActionListener {
-    private static JLabel display = Calculator.getDisplay();
+    private static JLabel display = CalcMainWindow.getDisplay();
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
