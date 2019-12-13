@@ -3,12 +3,8 @@ package ru.avalon.java.j120.labs.ColorPicker.Calculator.Windows;
 import ru.avalon.java.j120.labs.ColorPicker.Calculator.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
 public class CalcMainWindow {
-    //TODO constants
-    //TODO keyboard input
 
     private static CalcMainWindow instance;
     private static JFrame mainWindow = null;
@@ -73,7 +69,6 @@ public class CalcMainWindow {
         return equalityPanel;
     }
 
-    //TODO add actionListener
     private void addButton(JPanel panel, String ... label){
         for (String str :
                 label) {

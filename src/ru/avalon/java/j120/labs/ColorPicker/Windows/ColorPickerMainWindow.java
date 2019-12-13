@@ -31,7 +31,6 @@ public class ColorPickerMainWindow {
         mainWindow.add(colorBox);
         mainWindow.add(toolsPanel);
         mainWindow.setVisible(true);
-
     }
 
     private static JFrame createMainWindow(){
@@ -42,7 +41,6 @@ public class ColorPickerMainWindow {
         mainWindow.setLayout(new GridLayout(1,2));
         mainWindow.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainWindow.pack();
-
 
         return mainWindow;
     }
