@@ -1,6 +1,7 @@
-package ru.avalon.java.j120.labs.ColorPicker.Calculator.Windows;
+package ru.avalon.java.j120.labs.Calculator.Windows;
 
-import ru.avalon.java.j120.labs.ColorPicker.Calculator.*;
+import ru.avalon.java.j120.labs.Calculator.CustomActionListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,7 +32,7 @@ public class CalcMainWindow {
 
     private JFrame createMainWindow(){
         JFrame mainWindow = new JFrame();
-        mainWindow.setTitle("ru/avalon/java/j120/labs/ColorPicker/Calculator");
+        mainWindow.setTitle("ru/avalon/java/j120/labs/Calculator");
         mainWindow.setMinimumSize(new Dimension(300, 465));
         mainWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         mainWindow.setResizable(true);

@@ -1,6 +1,6 @@
-package ru.avalon.java.j120.labs.ColorPicker.Calculator;
+package ru.avalon.java.j120.labs.Calculator;
 
-import ru.avalon.java.j120.labs.ColorPicker.Calculator.Windows.CalcMainWindow;
+import ru.avalon.java.j120.labs.Calculator.Windows.CalcMainWindow;
 
 import javax.swing.*;
 
